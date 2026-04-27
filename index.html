@@ -11,17 +11,38 @@
 
 <header class="nav">
   <h2>🍯 أوريليا</h2>
-  <div>
-    <a href="cart.html">🛒 <span id="cartCount">0</span></a>
-  </div>
+  <a onclick="openCart()">🛒 <span id="cartCount">0</span></a>
 </header>
 
 <h2>منتجاتنا</h2>
-
 <div class="grid" id="products"></div>
 
+<!-- Drawer -->
+<div class="overlay" onclick="closeCart()"></div>
+
+<div class="cart-drawer" id="drawer">
+
+  <div class="drawer-header">
+    <h3>السلة</h3>
+    <span onclick="closeCart()">✖</span>
+  </div>
+
+  <div class="drawer-body" id="drawerItems"></div>
+
+  <div class="drawer-footer">
+    <h3 id="drawerTotal"></h3>
+    <button class="primary" onclick="goCheckout()">إتمام الطلب</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">تمت الإضافة للسلة 🛒</div>
+
 <script src="script.js"></script>
-<script>renderProducts(); updateCartCount();</script>
+<script>
+renderProducts();
+updateCartCount();
+</script>
 
 </body>
 </html>
