@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<title>السلة</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
 <body onload="loadCart()">
 
-<h2>🛒 السلة</h2>
+<header class="nav">
+  <a href="index.html">⬅</a>
+  <h2>السلة</h2>
+</header>
 
 <div id="cartItems"></div>
 
@@ -16,10 +11,7 @@
 
 <input id="phone" placeholder="رقم الجوال">
 
-<button onclick="checkout()">إتمام الطلب</button>
+<button class="primary" onclick="checkout()">إتمام الطلب</button>
 
-<br><br>
-<a href="index.html">⬅ متابعة التسوق</a>
-
+<script src="script.js"></script>
 </body>
-</html>
