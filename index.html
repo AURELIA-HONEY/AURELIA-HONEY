@@ -6,9 +6,7 @@
 <title>أوريليا</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<header class="header">
-  <img src="images/logo.jpeg" class="logo" alt="شعار موقع العسل">
-</header>
+
 <body>
 
 <header class="nav">
@@ -19,7 +17,7 @@
 <h2 class="title">منتجاتنا</h2>
 
 <div class="grid" id="products"></div>
-
+<div class="toast" id="toast">تمت الإضافة للسلة 🛒</div>
 <!-- Overlay -->
 <div class="overlay" onclick="closeCart()"></div>
 
@@ -47,7 +45,6 @@
 renderProducts();
 updateCartCount();
 </script>
-<div class="toast" id="toast">تمت الإضافة للسلة 🛒</div>
   
 </body>
 </html>
