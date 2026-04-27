@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتمام الطلب</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="loadCheckout()">
+
+<header class="nav">
+  <a href="index.html">⬅</a>
+  <h3>إتمام الطلب</h3>
+</header>
+
+<div class="container">
+
+<h3>ملخص الطلب</h3>
+<div id="summary"></div>
+
+<h3>معلومات التوصيل</h3>
+<input id="name" placeholder="الاسم">
+<input id="phone" placeholder="رقم الجوال">
+<input id="city" placeholder="المدينة">
+<input id="address" placeholder="العنوان">
+
+<h3>الشحن</h3>
+<select id="shipping">
+  <option value="30">عادي 30 ريال</option>
+  <option value="60">سريع 60 ريال</option>
+</select>
+
+<h3>الدفع</h3>
+<select id="payment">
+  <option value="cod">عند الاستلام</option>
+  <option value="online">إلكتروني</option>
+</select>
+
+<div class="total-box">
+  <p id="total"></p>
+</div>
+
+<button class="primary" onclick="confirmOrder()">تأكيد الطلب</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
