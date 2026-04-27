@@ -1,10 +1,9 @@
 let products = {
   sidr:{name:"سدر",price:120,img:"images/sidr.jpg",desc:"عسل فاخر"},
-  talh:{name:"طلح",price:90,img:"images/talh.jpg",desc:"نكهة قوية"},
-  samar:{name:"سمر",price:100,img:"images/samar.jpg",desc:"طعم داكن"},
+  talh:{name:"طلح",price:90,img:"images/talh.jpg"},
+  samar:{name:"سمر",price:100,img:"images/samar.jpg"}
 };
 
-/* عرض المنتجات */
 function renderProducts(){
   let box=document.getElementById("products");
   for(let id in products){
@@ -21,86 +20,102 @@ function renderProducts(){
   }
 }
 
-/* صفحة المنتج */
 function loadProduct(){
   let id=new URLSearchParams(location.search).get("id");
   let p=products[id];
+  window.current=p;
 
   document.getElementById("title").innerText=p.name;
   document.getElementById("image").src=p.img;
-  document.getElementById("desc").innerText=p.desc;
-
   document.getElementById("price").innerText=p.price+" ريال";
-
-  window.current=p;
 }
 
-/* إضافة */
 function addProduct(){
   let size=parseFloat(document.getElementById("size").value);
-
   let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
   cart.push({
     name:current.name,
     size,
-    price:current.price*size
+    price:current.price*size,
+    img:current.img,
+    qty:1
   });
 
   localStorage.setItem("cart",JSON.stringify(cart));
-  updateCartCount();
-  alert("تمت الإضافة");
+  showToast();
 }
 
-/* عداد السلة */
-function updateCartCount(){
-  let cart=JSON.parse(localStorage.getItem("cart"))||[];
-  let el=document.getElementById("cartCount");
-  if(el) el.innerText=cart.length;
+function showToast(){
+  let t=document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2000);
 }
 
-/* عرض السلة */
-function loadCart(){
+function openCart(){
+  document.getElementById("drawer").classList.add("open");
+  document.querySelector(".overlay").classList.add("show");
+  loadDrawer();
+}
+
+function closeCart(){
+  document.getElementById("drawer").classList.remove("open");
+  document.querySelector(".overlay").classList.remove("show");
+}
+
+function loadDrawer(){
   let cart=JSON.parse(localStorage.getItem("cart"))||[];
-  let box=document.getElementById("cartItems");
+  let box=document.getElementById("drawerItems");
   let total=0;
+  box.innerHTML="";
 
   cart.forEach((i,index)=>{
-    total+=i.price;
+    total+=i.price*i.qty;
 
     box.innerHTML+=`
-    <div class="cart-item">
-      ${i.name} (${i.size}ك)
-      - ${i.price} ريال
-      <button onclick="removeItem(${index})">❌</button>
-    </div>`;
+      <div class="cart-item">
+        <img src="${i.img}">
+        <div>
+          ${i.name}
+          <br>${i.size}ك
+          <br>${i.price*i.qty} ريال
+          <br>
+          <button onclick="changeQty(${index},1)">+</button>
+          ${i.qty}
+          <button onclick="changeQty(${index},-1)">-</button>
+        </div>
+      </div>`;
   });
 
-  document.getElementById("total").innerText="الإجمالي: "+total;
+  document.getElementById("drawerTotal").innerText="الإجمالي: "+total;
 }
 
-/* حذف */
-function removeItem(i){
+function changeQty(i,c){
   let cart=JSON.parse(localStorage.getItem("cart"))||[];
-  cart.splice(i,1);
+  cart[i].qty+=c;
+  if(cart[i].qty<=0) cart.splice(i,1);
   localStorage.setItem("cart",JSON.stringify(cart));
-  location.reload();
+  loadDrawer();
 }
 
-/* طلب */
-function checkout(){
-  let phone=document.getElementById("phone").value;
-  if(!phone) return;
+function goCheckout(){
+  window.location.href="checkout.html";
+}
 
+function loadCheckout(){
   let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  let box=document.getElementById("summary");
+  let total=0;
 
-  let total=cart.reduce((s,i)=>s+i.price,0);
-  let id="AUR-"+Date.now();
+  cart.forEach(i=>{
+    total+=i.price*i.qty;
+    box.innerHTML+=`<div>${i.name} × ${i.qty}</div>`;
+  });
 
-  let msg=`طلب جديد\n${id}\n${total}`;
+  document.getElementById("total").innerText=total+" ريال";
+}
 
-  window.open(`https://wa.me/966552256034?text=${encodeURIComponent(msg)}`);
-
+function confirmOrder(){
+  alert("تم الطلب ✨");
   localStorage.removeItem("cart");
-  alert("تم الطلب");
 }
