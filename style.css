@@ -2,47 +2,80 @@ body {
   font-family: Arial;
   direction: rtl;
   margin: 0;
-  background: #FFF8E7;
+  background: linear-gradient(#FFF8E7, #f5e6c8);
 }
 
+/* هيدر */
 .nav {
   background: #C9A420;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
-  padding: 15px;
   color: white;
 }
 
+/* عنوان */
+.title {
+  padding: 10px;
+}
+
+/* منتجات */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  gap: 15px;
-  padding: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
 .card {
   background: white;
+  border-radius: 12px;
   padding: 10px;
-  border-radius: 10px;
   text-align: center;
 }
 
 .card img {
   width: 100%;
+  border-radius: 10px;
 }
 
+/* زر */
 .primary {
   background: #C9A420;
   color: white;
-  padding: 10px;
+  padding: 16px;
   border: none;
   width: 100%;
+  border-radius: 12px;
+  font-size: 18px;
 }
 
+.big-btn {
+  font-size: 20px;
+}
+
+/* صورة المنتج */
 .product-img {
-  width: 80%;
-  margin: auto;
+  width: 90%;
   display: block;
+  margin: auto;
+}
+
+/* Drawer */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  max-width: 350px;
+  height: 100%;
+  background: white;
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.cart-drawer.open {
+  right: 0;
 }
 
 .overlay {
@@ -52,6 +85,7 @@ body {
   background: rgba(0,0,0,0.4);
   opacity: 0;
   pointer-events: none;
+  transition: 0.3s;
 }
 
 .overlay.show {
@@ -59,28 +93,21 @@ body {
   pointer-events: all;
 }
 
-.cart-drawer {
-  position: fixed;
-  right: -100%;
-  width: 320px;
-  height: 100%;
-  background: white;
-  transition: 0.3s;
-}
-
-.cart-drawer.open {
-  right: 0;
-}
-
+/* عناصر السلة */
 .cart-item {
   display: flex;
   gap: 10px;
-  padding: 10px;
   background: white;
   margin: 10px;
+  padding: 10px;
   border-radius: 10px;
 }
 
+.cart-item img {
+  width: 60px;
+}
+
+/* toast */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -88,9 +115,30 @@ body {
   background: black;
   color: white;
   padding: 10px;
+  border-radius: 8px;
   opacity: 0;
 }
 
 .toast.show {
   opacity: 1;
+}
+
+/* فورم */
+.container {
+  padding: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.total-box {
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
 }
