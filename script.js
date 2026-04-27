@@ -1,133 +1,106 @@
 let products = {
-  sidr: {
-    name: "سدر أوريليا الملكي",
-    price: 120,
-    img: "images/sidr.jpg",
-    desc: "عسل فاخر طبيعي 100%"
-  },
-  talh: {
-    name: "طلح أوريليا",
-    price: 90,
-    img: "images/talh.jpg",
-    desc: "نكهة قوية"
-  },
-  samar: {
-    name: "سمر أوريليا",
-    price: 100,
-    img: "images/samar.jpg",
-    desc: "طعم داكن أصيل"
-  },
-  pollen: {
-    name: "حبوب اللقاح",
-    price: 70,
-    img: "images/pollen.jpg",
-    desc: "مكمل طبيعي"
-  }
+  sidr:{name:"سدر",price:120,img:"images/sidr.jpg",desc:"عسل فاخر"},
+  talh:{name:"طلح",price:90,img:"images/talh.jpg",desc:"نكهة قوية"},
+  samar:{name:"سمر",price:100,img:"images/samar.jpg",desc:"طعم داكن"},
 };
 
-/* تحميل المنتج */
-function loadProduct() {
-  let id = new URLSearchParams(window.location.search).get("id");
-  let p = products[id];
-
-  document.getElementById("title").innerText = p.name;
-  document.getElementById("image").src = p.img;
-  document.getElementById("desc").innerText = p.desc;
-
-  window.currentProduct = p;
+/* عرض المنتجات */
+function renderProducts(){
+  let box=document.getElementById("products");
+  for(let id in products){
+    let p=products[id];
+    box.innerHTML+=`
+      <div class="card">
+        <img src="${p.img}">
+        <h4>${p.name}</h4>
+        <p>${p.price} ريال</p>
+        <a href="product.html?id=${id}">
+          <button>عرض</button>
+        </a>
+      </div>`;
+  }
 }
 
-/* إضافة للسلة */
-function addProduct() {
+/* صفحة المنتج */
+function loadProduct(){
+  let id=new URLSearchParams(location.search).get("id");
+  let p=products[id];
 
-  let size = parseFloat(document.getElementById("size").value);
+  document.getElementById("title").innerText=p.name;
+  document.getElementById("image").src=p.img;
+  document.getElementById("desc").innerText=p.desc;
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.getElementById("price").innerText=p.price+" ريال";
+
+  window.current=p;
+}
+
+/* إضافة */
+function addProduct(){
+  let size=parseFloat(document.getElementById("size").value);
+
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
   cart.push({
-    name: currentProduct.name,
-    price: currentProduct.price * size,
-    size: size
+    name:current.name,
+    size,
+    price:current.price*size
   });
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart",JSON.stringify(cart));
+  updateCartCount();
+  alert("تمت الإضافة");
+}
 
-  alert("تمت الإضافة للسلة");
+/* عداد السلة */
+function updateCartCount(){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  let el=document.getElementById("cartCount");
+  if(el) el.innerText=cart.length;
 }
 
 /* عرض السلة */
-function loadCart() {
+function loadCart(){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  let box=document.getElementById("cartItems");
+  let total=0;
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.forEach((i,index)=>{
+    total+=i.price;
 
-  let box = document.getElementById("cartItems");
-  let total = 0;
-
-  cart.forEach(i => {
-    total += i.price;
-
-    box.innerHTML += `
-      <div>
-        ${i.name} (${i.size} كيلو) - ${i.price} ريال
-      </div>
-    `;
+    box.innerHTML+=`
+    <div class="cart-item">
+      ${i.name} (${i.size}ك)
+      - ${i.price} ريال
+      <button onclick="removeItem(${index})">❌</button>
+    </div>`;
   });
 
-  document.getElementById("total").innerText = "الإجمالي: " + total;
+  document.getElementById("total").innerText="الإجمالي: "+total;
 }
 
-/* إنشاء الطلب */
-function checkout() {
+/* حذف */
+function removeItem(i){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  cart.splice(i,1);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  location.reload();
+}
 
-  let phone = document.getElementById("phone").value;
+/* طلب */
+function checkout(){
+  let phone=document.getElementById("phone").value;
+  if(!phone) return;
 
-  if (!phone) return;
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let total=cart.reduce((s,i)=>s+i.price,0);
+  let id="AUR-"+Date.now();
 
-  let total = cart.reduce((s, i) => s + i.price, 0);
+  let msg=`طلب جديد\n${id}\n${total}`;
 
-  let id = "AUR-" + Date.now();
-
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-  orders.push({
-    id,
-    phone,
-    total,
-    status: "قيد المعالجة"
-  });
-
-  localStorage.setItem("orders", JSON.stringify(orders));
-
-  /* واتساب */
-  let msg = `طلب جديد %0A رقم: ${id} %0A الإجمالي: ${total}`;
-
-  window.open(`https://wa.me/9665XXXXXXXX?text=${msg}`);
+  window.open(`https://wa.me/966552256034?text=${encodeURIComponent(msg)}`);
 
   localStorage.removeItem("cart");
-
-  alert("تم الطلب بنجاح، رقم طلبك: " + id);
-}
-
-/* تتبع */
-function trackOrder() {
-
-  let id = document.getElementById("trackId").value;
-
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-  let o = orders.find(x => x.id === id);
-
-  let box = document.getElementById("trackResult");
-
-  if (!o) {
-    box.innerHTML = "❌ غير موجود";
-    return;
-  }
-
-  box.innerHTML = `
-    <p>رقم: ${o.id}</p>
-    <p>الحالة: ${o.status}</p>
-  `;
+  alert("تم الطلب");
 }
