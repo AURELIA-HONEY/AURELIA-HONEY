@@ -9,40 +9,19 @@
 
 <body>
 
-<header>
-  🍯 أوريليا… ذهب يُتذوّق
-  <a href="cart.html">🛒 السلة</a>
+<header class="nav">
+  <h2>🍯 أوريليا</h2>
+  <div>
+    <a href="cart.html">🛒 <span id="cartCount">0</span></a>
+  </div>
 </header>
 
 <h2>منتجاتنا</h2>
 
-<div class="grid">
+<div class="grid" id="products"></div>
 
-  <div class="card">
-    <img src="images/sidr.jpg">
-    <h3>سدر أوريليا</h3>
-    <a href="product.html?id=sidr"><button>عرض</button></a>
-  </div>
-
-  <div class="card">
-    <img src="images/talh.jpg">
-    <h3>طلح أوريليا</h3>
-    <a href="product.html?id=talh"><button>عرض</button></a>
-  </div>
-
-  <div class="card">
-    <img src="images/samar.jpg">
-    <h3>سمر أوريليا</h3>
-    <a href="product.html?id=samar"><button>عرض</button></a>
-  </div>
-
-  <div class="card">
-    <img src="images/pollen.jpg">
-    <h3>حبوب اللقاح</h3>
-    <a href="product.html?id=pollen"><button>عرض</button></a>
-  </div>
-
-</div>
+<script src="script.js"></script>
+<script>renderProducts(); updateCartCount();</script>
 
 </body>
 </html>
