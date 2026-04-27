@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أوريليا | ذهب يُتذوّق</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>🍯 أوريليا… ذهب يُتذوّق</header>
+
+<section class="hero">
+  <h1>مرحبًا بك في أوريليا</h1>
+  <p>من مناحلنا… نضمن لك نقاءً لا يُضاهى</p>
+</section>
+
+<!-- المنتجات -->
+<section class="products">
+
+  <h2>🍯 منتجاتنا</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="images/sidr.jpg">
+      <h3>سدر أوريليا الملكي</h3>
+      <p>عسل فاخر 100%</p>
+      <button onclick="addToCart('سدر ملكي',120)">إضافة</button>
+    </div>
+
+    <div class="card">
+      <img src="images/talh.jpg">
+      <h3>طلح أوريليا الذهبي</h3>
+      <p>نكهة قوية</p>
+      <button onclick="addToCart('طلح',90)">إضافة</button>
+    </div>
+
+    <div class="card">
+      <img src="images/samar.jpg">
+      <h3>سمر أوريليا الفاخر</h3>
+      <p>طعم داكن أصيل</p>
+      <button onclick="addToCart('سمر',100)">إضافة</button>
+    </div>
+
+    <div class="card">
+      <img src="images/pollen.jpg">
+      <h3>كنز أوريليا</h3>
+      <p>حبوب لقاح طبيعية</p>
+      <button onclick="addToCart('لقاح',70)">إضافة</button>
+    </div>
+
+    <div class="card">
+      <img src="images/box.jpg">
+      <h3>بوكس أوريليا الذهبي</h3>
+      <p>تجربة كاملة</p>
+      <button onclick="addToCart('بوكس',250)">إضافة</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- السلة -->
+<section class="cart">
+
+  <h2>🛒 السلة</h2>
+
+  <div id="cartItems"></div>
+
+  <h3 id="total">الإجمالي: 0</h3>
+
+  <input id="phone" placeholder="رقم الجوال">
+
+  <button onclick="checkout()">إتمام الطلب</button>
+
+</section>
+
+<!-- التتبع -->
+<section class="track">
+
+  <h2>📦 تتبع الطلب</h2>
+
+  <input id="trackId" placeholder="رقم الطلب">
+  <button onclick="trackOrder()">تتبع</button>
+
+  <div id="trackResult"></div>
+
+</section>
+
+<!-- لوحة التحكم -->
+<section class="admin">
+
+  <h2>🧠 لوحة التحكم</h2>
+
+  <button onclick="loadOrders()">عرض الطلبات</button>
+
+  <div id="ordersList"></div>
+
+</section>
+
+<footer>
+  © أوريليا… ذهب يُتذوّق
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
