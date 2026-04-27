@@ -70,7 +70,7 @@ function checkout() {
 الطلبات:
 ${cart.map(i => i.name).join(" - ")}`;
 
-  let adminNumber = "966552256034";
+  let adminNumber = "966509355903";
 
   window.open(
     `https://wa.me/${adminNumber}?text=${encodeURIComponent(msg)}`
