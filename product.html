@@ -1,30 +1,25 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<title>المنتج</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
 <body onload="loadProduct()">
 
-<a href="index.html">⬅ رجوع</a>
-
-<h2 id="title"></h2>
+<header class="nav">
+  <a href="index.html">⬅</a>
+  <h3 id="title"></h3>
+  <a href="cart.html">🛒</a>
+</header>
 
 <img id="image" class="product-img">
 
 <p id="desc"></p>
 
+<label>اختر الكمية:</label>
 <select id="size">
   <option value="0.5">نص كيلو</option>
   <option value="1">1 كيلو</option>
   <option value="2">2 كيلو</option>
 </select>
 
-<br><br>
+<h3 id="price"></h3>
 
-<button onclick="addProduct()">إضافة للسلة</button>
+<button class="primary" onclick="addProduct()">إضافة للسلة</button>
 
+<script src="script.js"></script>
 </body>
-</html>
