@@ -1,47 +1,52 @@
 body {
   font-family: Arial;
   direction: rtl;
+  margin: 0;
   background: #FFF8E7;
-  text-align: center;
 }
 
-header {
+.nav {
   background: #C9A420;
-  padding: 15px;
   display: flex;
   justify-content: space-between;
+  padding: 15px;
 }
 
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  gap: 15px;
+  padding: 15px;
 }
 
 .card {
   background: white;
-  width: 200px;
-  margin: 10px;
   padding: 10px;
   border-radius: 10px;
+  text-align: center;
 }
 
 .card img {
   width: 100%;
 }
 
-button {
+button.primary {
   background: #C9A420;
+  color: white;
   padding: 10px;
+  width: 100%;
   border: none;
-  cursor: pointer;
 }
 
 .product-img {
-  width: 250px;
+  width: 80%;
+  display: block;
+  margin: auto;
 }
 
-input, select {
+.cart-item {
+  background: white;
+  margin: 10px;
   padding: 10px;
-  width: 200px;
+  border-radius: 10px;
 }
