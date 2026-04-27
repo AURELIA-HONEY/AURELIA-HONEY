@@ -1,16 +1,22 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>المنتج</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
 <body onload="loadProduct()">
 
 <header class="nav">
   <a href="index.html">⬅</a>
   <h3 id="title"></h3>
-  <a href="cart.html">🛒</a>
+  <a onclick="openCart()">🛒</a>
 </header>
 
 <img id="image" class="product-img">
-
 <p id="desc"></p>
 
-<label>اختر الكمية:</label>
 <select id="size">
   <option value="0.5">نص كيلو</option>
   <option value="1">1 كيلو</option>
@@ -23,3 +29,4 @@
 
 <script src="script.js"></script>
 </body>
+</html>
